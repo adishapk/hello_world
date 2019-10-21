@@ -1,0 +1,116 @@
+﻿@model IEnumerable<emptest.Models.login>
+@using emptest.Models;
+@{
+    ViewBag.Title = "Export";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        SIMPLE LOGIC
+        <div class="input-group ">
+            <span class="pull-right"><a href=@Url.Action("Index", "signin") class="btn btn-primary btn-sm">signout?</a></span>
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row content">
+                <div class="col-lg-3 sidenav  ">
+                    <h2 style="color:brown">Employee Details</h2>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href=@Url.Action("Index", "form") class="btn btn-danger">Dashboard</a></li>
+                        <li><a href=@Url.Action("Index", "home") class="btn btn-info">Employee info</a></li>
+                        <li><a href=@Url.Action("index","emp") class="btn btn-warning">Add New Employee</a></li>
+                        <li><a href=@Url.Action("Index", "delete") class="btn btn-success">Delete Employee</a></li>
+                        <li><a href=@Url.Action("Index", "update") class="btn btn-primary">Update Employee</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-9">
+
+
+                    <div class="row">
+
+                        <div class="col-lg-10 well">
+
+
+                            @using (Html.BeginForm("ExportToExcel", "emp", FormMethod.Post))
+                            {
+                                <br />
+                                <br />
+                                <h2>
+                                    Export Data To Excel
+                                </h2>
+                                <table style="background-color: white; width: 100%;border:double">
+                                    <tr>
+                                        <th style="border: 1px solid black; text-align: left; width: 20%; padding-left: 20px;">
+                                            Empid
+                                        </th>
+                                        <th style="border: 2px solid black; text-align: center; width: 20%">
+                                            Name
+                                        </th>
+                                        <th style="border: 2px solid black; text-align: center; width: 20%">
+                                            Gender
+                                        </th>
+                                        <th style="border: 2px solid black; text-align: center; width: 20%">
+                                            Age
+                                        </th>
+
+
+                                    </tr>
+                                    @foreach (var itm in Model)
+                                    {
+                                        <tr>
+                                            <td style="padding-left: 20px;border: 1px solid black;">
+                                                @Html.DisplayFor(m => itm.empid)
+                                            </td>
+                                            <td style="padding-left: 20px;border: 1px solid black;">
+                                                @Html.DisplayFor(m => itm.empname)
+                                            </td>
+                                            <td style="padding-left: 20px;border: 1px solid black;">
+                                                @Html.DisplayFor(m => itm.gender)
+                                            </td>
+                                            <td style="padding-left: 50px;border: 1px solid black;">
+                                                @Html.DisplayFor(m => itm.age)
+                                            </td>
+
+                                        </tr>
+                                    }
+                                    <tr>
+
+
+                                </table>
+
+                                <br />
+                                <br />
+                                <input type="submit" value="Export to Excel" class="btn btn-primary pull-right" />
+                                <a href=@Url.Action( "index", "emp") class="btn btn-primary pull-left"> Back</a>                               
+
+                            }
+
+
+
+
+
+
+
+
+                        </div><!--clg-10-->
+                    </div><!--row-->
+
+                </div><!--col-lg9-->
+
+            </div><!--row-content-->
+
+
+        </div><!--container-->
+
+
+    </div><!--panel body-->
+    <div class="panel-footer" style="background-color:burlywood;text-align:center">Panel Footer</div>
+
+
+
+</div><!--panel -->
+
+
+
+
