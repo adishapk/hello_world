@@ -1,0 +1,121 @@
+﻿@model emptest.Models.emp
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<!DOCTYPE html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        SIMPLE LOGIC
+        <div class="input-group ">
+            <span class="pull-right"><a href=@Url.Action("Index", "signin") class="btn btn-primary btn-sm">signout?</a></span>
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row content">
+                <div class="col-lg-3 sidenav  ">
+                    <h2 style="color:brown">Employee Details</h2>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href=@Url.Action("Index", "form") class="btn btn-danger">Dashboard</a></li>
+                        <li><a href=@Url.Action("Index", "home") class="btn btn-info">Employee info</a></li>
+                        <li><a href=@Url.Action("index","emp") class="btn btn-warning">Add New Employee</a></li>
+                        <li><a href=@Url.Action("Index", "delete") class="btn btn-success">Delete Employee</a></li>
+                        <li><a href=@Url.Action("Index", "update") class="btn btn-primary">Update Employee</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-9">
+
+
+                    <div class="row">
+
+                        <div class="col-lg-10 well">
+                            
+                            <h2>Add New Employee</h2>
+                                    @using (Html.BeginForm("Index", "emp", FormMethod.Post))
+                                    { 
+                                        <div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serifArial">
+                                <table class="table-bordered table-hover table-responsive table-striped "style="width:100%">
+                                    
+                                    <tr>
+                                        <td align="center" tabindex="2">Emp Id: </td>
+                                        <td align="center" tabindex="2">
+                                            @Html.TextBoxFor(m => m.empid ,new{ id = "txt1", TabIndex = "2", MaxLength = "30", @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.empid)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" tabindex="2">Name: </td>
+                                        <td align="center" tabindex="2">
+                                            @Html.TextBoxFor(m => m.empname, new { id = "txt2", TabIndex = "2", MaxLength = "30", @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.empname)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" tabindex="2">Gender: </td>
+                                        <td align="center" tabindex="2">
+                                            @Html.DropDownList("Gender", new List<SelectListItem>
+               {
+                   new SelectListItem {Text="male",Value="male" }, new SelectListItem {Text="female",Value="female" }
+               }, "select gender", new { id = "txt", TabIndex = "2", MaxLength = "30", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" tabindex="2">Age: </td>
+                                        <td align="center" tabindex="2">
+                                            @Html.TextBoxFor(m => m.age, new { id = "txt4", TabIndex = "2", MaxLength = "30", @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                   <tr >
+                                        <td align="center" tabindex="2" style="border:none"></td>
+                                        <td align="center" tabindex="2" style="border:none"><input type="submit" value="Submit" class="btn btn-primary pull-right" /></td>
+                                    </tr>
+                                </table>
+                                            
+                              </div>
+                                }
+                            
+                                <br />
+                                <br />
+
+                                <div>
+                                    <a href=@Url.Action( "index", "main") class="btn btn-primary pull-left">Back</a>
+
+                                </div>
+                                <div class="align">
+
+                                    <a href=@Url.Action( "export", "emp") class="btn btn-primary pull-right">Export to Excel</a>
+
+
+                                </div>
+
+                            </div>
+                    </div>
+
+                        </div><!--col-lg9-->
+
+                    </div><!--row-content-->
+
+
+                </div><!--container-->
+
+
+    </div><!--panel body-->
+    <div class="panel-footer" style="background-color:burlywood;text-align:center">Panel Footer</div>
+
+
+
+</div><!--panel -->
+
+@Html.Raw(TempData["msg"])
+
+

@@ -1,0 +1,82 @@
+﻿
+@model emptest.Models.emp
+
+@{
+    ViewBag.Title = "display";
+}
+
+<h2>display</h2>
+
+
+<div ng-app="myapp"   ng-controller="mycon">
+    <input type="text" ng-model="test" placeholder="search"/>
+    <br />
+    <br />
+    <input type="checkbox" ng-model="age"/>Hide Age
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th ng-click="order('EMPID')" style="cursor:pointer">
+                    id
+                </th>
+                <th ng-click="order(EMPNAME)"style="cursor:pointer">
+                    Name
+                </th>
+                <th>
+                    gender
+                </th>
+                <th ng-if="age">
+                    age
+                </th>
+                <th ng-if="!age">
+                    age
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in @ViewBag.data| orderBy : orderme|filter:test:onlyMatch ">
+           <td >{{x.EMPID}}</td>
+            <td>{{x.EMPNAME|myFormat}}</td>
+            <td>{{x.GENDER|uppercase}}</td>
+            <td ng-if="!age">{{x.AGE}}</td>
+            <td ng-if="age">##</td>
+        </tr>
+           </tbody> 
+    </table>
+    <br />
+    <br />
+    
+    <input type="checkbox" ng-model="show"/>active
+    <p ng-if=!show>Not Active employee</p>
+    <p ng-if=show>Active employee</p>
+</div>
+   
+<script>
+    var app = angular.module('myapp', []);
+  
+   
+    app.filter('myFormat', function() {
+        return function(x) {
+            var i, c, txt = "";
+            for (i = 0; i < x.length; i++) {
+                c = x[i];
+                if (i % 2 == 0) {
+                    c = c.toUpperCase();
+                }
+                txt += c;
+            }
+            return txt;
+        };
+    });
+    app.controller('mycon', function ($scope) {
+         
+        $scope.orderme = 'EMPID';
+        $scope.order = function (x) { $scope.orderme = x;}
+        
+        $scope.onlyMatch = function (input, output) {
+            var Str = (input + "").toLowerCase();
+            return Str.indexOf(output.toLowerCase()) === 0;
+        }
+    });
+   
+</script>
